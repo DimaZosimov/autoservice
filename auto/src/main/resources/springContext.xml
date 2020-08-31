@@ -90,11 +90,22 @@
     
     <security:global-method-security pre-post-annotations= "enabled" secured-annotations= "enabled" jsr250-annotations= "enabled"/>
     
-    <!-- bind your messages.properties -->
-    <bean class="org.springframework.context.support.ResourceBundleMessageSource"
-        id="messageSource">
-        <property name="basename" value="classpath:validator_messages_ru"/>
-        <property name="defaultEncoding" value="UTF-8"/>
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/*"/>
+			<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="languageVar" />
+			</bean>    		
+    	</mvc:interceptor>
+    </mvc:interceptors>
+    
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="ru" />
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames" value="classpath:/locales/messages"/>
+        <property name="defaultEncoding" value="UTF-8" />
     </bean>
     
      	

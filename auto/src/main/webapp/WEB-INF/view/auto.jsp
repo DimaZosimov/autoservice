@@ -3,14 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My Cars</title>
+<title><spring:message code="auto.title"/></title>
 </head>
 <body>
 <div>
+	<a href="<%=request.getContextPath()%>/auto?languageVar=en">EN</a>
+  	<a href="<%=request.getContextPath()%>/auto?languageVar=ru">RU</a>
 	<sec:authorize access="!isAuthenticated()">
 		<jsp:forward page="/auto-1.0/"></jsp:forward>
 	</sec:authorize>
@@ -18,9 +21,9 @@
 		<div align="center">
 			<table>
 				<tr>
-					<td><a href="/auto-1.0/">Главная</a></td>
-					<td><a href="/auto-1.0/profile">Мой профиль</a></td>
-					<td><a href="/auto-1.0/auto">Мои автомобили</a></td>
+					<td><a href="/auto-1.0/"><spring:message code="auto.href.home"/></a></td>
+					<td><a href="/auto-1.0/profile"><spring:message code="auto.href.profile"/></a></td>
+					<td><a href="/auto-1.0/auto"><spring:message code="auto.href.auto"/></a></td>
 					<td><div><form action="logout" method="post">
 					            <input type="submit" value="Sign Out"/>
 					            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -40,27 +43,27 @@
     						<td>${auto.model}</td>
     					</tr>
     					<tr>
-    						<td>Тип двигателя:</td>
+    						<td><spring:message code="auto.text.typeOfEngine"/></td>
     						<td>${auto.engine}</td>
     					</tr>
     					<tr>
-    						<td>Год выпуска:</td>
+    						<td><spring:message code="auto.text.yearOfManufacture"/></td>
     						<td>${auto.yearOfManufacture}</td>
     					</tr>
     					<tr>
-    						<td>Пробег:</td>
+    						<td><spring:message code="auto.text.milleage"/></td>
     						<td>${auto.milleage}</td>
     					</tr>
     					<tr>
     						<td><form:form method="GET" action="update_auto">
     							<input type="hidden" name="updateId" value="${auto.autoId}"/>
     							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    							<button type="submit">Изменить</button>
+    							<button type="submit"><spring:message code="auto.button.edit"/></button>
     							</form:form></td>
     						<td><form:form method="GET" action="delete_auto">
     							<input type="hidden" name="deleteId" value="${auto.autoId}"/>
     							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    							<button type="submit">Удалить</button> 
+    							<button type="submit"><spring:message code="auto.button.delete"/></button> 
     						</form:form>
     				</c:forEach>
     			</table>
@@ -69,7 +72,7 @@
     	<div>
     		<form:form method="GET" action="insert_auto">
     			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    			<button type="submit">Добавить авто</button>
+    			<button type="submit"><spring:message code="auto.button.insertAuto"/></button>
     		</form:form>
     	</div>
 	</sec:authorize>
