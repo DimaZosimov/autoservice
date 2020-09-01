@@ -1,18 +1,28 @@
 package service.auto.view;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class ProfileRequest {
 	
-	@Size(min = 5, max = 30)
+	private final static String USERNAME = "\\w+";
+	private final static String NAME = "[A-Za-zА-Яа-я]+";
+	private final static String MIDDLE_NAME = "[A-Za-zА-Яа-я]*";
+	
+	@Size(min = 5, max = 30, message = "{size.profileRequest.username}")
+	@NotBlank(message = "{notBlank.profileRequest}")
+	@Pattern(regexp = USERNAME, message = "{pattern.profileRequest.username}")
 	private String username;
-	@NotBlank
+	@NotBlank(message = "{notBlank.profileRequest}")
+	@Pattern(regexp = NAME, message = "{pattern.profileRequest.name}")
 	private String firstName;
-	@NotBlank
+	@Pattern(regexp = MIDDLE_NAME, message = "{pattern.profileRequest.name}")
 	private String middleName;
-	@NotBlank
+	@NotBlank(message = "{notBlank.profileRequest}")
+	@Pattern(regexp = NAME, message = "{pattern.profileRequest.name}")
 	private String lastName;
+	@NotBlank(message = "{notBlank.profileRequest}")
 	private String dateOfBirth;
 	
 	public ProfileRequest(String username, String firstName, String middleName, String lastName, String dateOfBirth) {

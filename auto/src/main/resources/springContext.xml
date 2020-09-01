@@ -70,7 +70,7 @@
         HttpMessageConverter support for @RequestBody method parameters and @ResponseBody method return values
         from @RequestMapping or @ExceptionHandler methods.
      -->
- 	<mvc:annotation-driven>
+ 	<mvc:annotation-driven validator="validator">
         <!--use int RestController to produce pretty json response-->
         <mvc:message-converters>
             <bean id="jacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -104,9 +104,12 @@
 	</bean>
 	
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basenames" value="classpath:/locales/messages"/>
+        <property name="basenames" value="classpath:/locales/messages, classpath:/ValidationMessages/ValidationMessages"/>
         <property name="defaultEncoding" value="UTF-8" />
     </bean>
     
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    	<property name="validationMessageSource" ref="messageSource"/>
+    </bean>
      	
  </beans>

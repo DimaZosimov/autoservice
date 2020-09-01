@@ -24,8 +24,8 @@ public class SparePart {
 	@ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "auto_id")
 	private Auto auto;
-	@Column(name = "milleage", nullable = false)
-	private Long milleage;
+	@Column(name = "mileage", nullable = false)
+	private Long mileage;
 	@Column(name = "service_period", nullable = false)
 	private Long servicePeriod;
 	@Column(name = "requiring_service", nullable = false)
@@ -36,8 +36,8 @@ public class SparePart {
 //	private Long using;
 	
 	public SparePart() {
-//		this.nextService = this.milleage + this.servicePeriod;
-//		this.using = this.auto.getMilleage() - this.milleage;
+//		this.nextService = this.mileage + this.servicePeriod;
+//		this.using = this.auto.getMileage() - this.mileage;
 	}
 
 	public Long getSparePartId() {
@@ -64,12 +64,12 @@ public class SparePart {
 		this.auto = auto;
 	}
 
-	public Long getMilleage() {
-		return milleage;
+	public Long getMileage() {
+		return mileage;
 	}
 
-	public void setMilleage(Long milleage) {
-		this.milleage = milleage;
+	public void setMileage(Long mileage) {
+		this.mileage = mileage;
 	}
 
 	public Long getServicePeriod() {
@@ -103,14 +103,5 @@ public class SparePart {
 	public void setRequiringService(boolean requiringService) {
 		this.requiringService = requiringService;
 	}
-
-	@Override
-	public String toString() {
-		return "SparePart [sparePartId=" + sparePartId + ", name=" + name + ", auto=" + auto + ", milleage=" + milleage
-				+ ", servicePeriod=" + servicePeriod + ", requiringService=" + requiringService 
-				+ "]";
-	}
-	
-	
 	
 }

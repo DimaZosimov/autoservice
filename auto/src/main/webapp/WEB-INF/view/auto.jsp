@@ -51,8 +51,8 @@
     						<td>${auto.yearOfManufacture}</td>
     					</tr>
     					<tr>
-    						<td><spring:message code="auto.text.milleage"/></td>
-    						<td>${auto.milleage}</td>
+    						<td><spring:message code="auto.text.mileage"/></td>
+    						<td>${auto.mileage}</td>
     					</tr>
     					<tr>
     						<td><form:form method="GET" action="update_auto">

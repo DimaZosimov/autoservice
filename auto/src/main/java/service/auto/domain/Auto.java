@@ -32,8 +32,8 @@ public class Auto {
 	private Engine engine;
 	@Column(name = "year_of_manufacture", nullable = false)
 	private String yearOfManufacture;
-	@Column(name = "milleage", nullable = false)
-	private Long milleage;
+	@Column(name = "mileage", nullable = false)
+	private Long mileage;
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "auto")
 	private List<SparePart> spareParts;
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "auto")
@@ -72,11 +72,11 @@ public class Auto {
 	public void setEngine(Engine engine) {
 		this.engine = engine;
 	}
-	public Long getMilleage() {
-		return milleage;
+	public Long getMileage() {
+		return mileage;
 	}
-	public void setMilleage(Long milleage) {
-		this.milleage = milleage;
+	public void setMileage(Long mileage) {
+		this.mileage = mileage;
 	}
 	public List<SparePart> getSpareParts() {
 		return spareParts;

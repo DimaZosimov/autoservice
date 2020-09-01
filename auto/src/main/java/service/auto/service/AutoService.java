@@ -31,7 +31,7 @@ public class AutoService {
 	@Transactional
 	public boolean updateAuto(AutoUpdateRequest req, PersonModel person) {
 		if(autoDao.updateAuto(req.getBrand(), req.getModel(), req.getEngine(), 
-				req.getYearOfManufacture(), req.getMilleage(), req.getAutoId()) > 0) {
+				req.getYearOfManufacture(), req.getMileage(), req.getAutoId()) > 0) {
 			person.setAuto(autoDao.findByPersonId(person.getPersonId()));
 			return true;
 		}
@@ -70,7 +70,7 @@ public class AutoService {
 		auto.setModel(request.getModel());
 		auto.setEngine(request.getEngine());
 		auto.setYearOfManufacture(request.getYearOfManufacture());
-		auto.setMilleage(request.getMilleage());
+		auto.setMileage(request.getMileage());
 		return auto;
 	}
 

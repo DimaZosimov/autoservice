@@ -14,15 +14,15 @@ public class AutoResponse {
 	private String engine;
 	private String yearOfManufacture;
 	@XmlJavaTypeAdapter(LongAdapter.class)
-	private Long milleage;
+	private Long mileage;
 		
-	public AutoResponse(Long autoId, String brand, String model, String engine, String yearOfManufacture, Long milleage) {
+	public AutoResponse(Long autoId, String brand, String model, String engine, String yearOfManufacture, Long mileage) {
 		this.autoId = autoId;
 		this.brand = brand;
 		this.model = model;
 		this.engine = engine;
 		this.yearOfManufacture = yearOfManufacture;
-		this.milleage = milleage;
+		this.mileage = mileage;
 	}
 	
 	public Long getAutoId() {
@@ -57,11 +57,11 @@ public class AutoResponse {
 	public void setYearOfManufacture(String yearOfManufacture) {
 		this.yearOfManufacture = yearOfManufacture;
 	}
-	public Long getMilleage() {
-		return milleage;
+	public Long getMileage() {
+		return mileage;
 	}
-	public void setMilleage(Long milleage) {
-		this.milleage = milleage;
+	public void setMilleage(Long mileage) {
+		this.mileage = mileage;
 	}
 	
 }

@@ -1,14 +1,18 @@
 package service.auto.view;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class RequestPassword {
 	
-	@Size(min = 5, max = 30)
+	@Size(min = 5, max = 30, message = "{size.requestPassword}")
+	@NotBlank(message = "{notBlank.requestPassword}")
 	private String password;
-	@Size(min = 5, max = 30)
+	@Size(min = 5, max = 30, message = "{size.requestPassword}")
+	@NotBlank(message = "{notBlank.requestPassword}")
 	private String newPassword;
-	@Size(min = 5, max = 30)
+	@Size(min = 5, max = 30, message = "{size.requestPassword}")
+	@NotBlank(message = "{notBlank.requestPassword}")
 	private String newPasswordConfirm;
 		
 	public RequestPassword() {

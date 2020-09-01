@@ -58,9 +58,9 @@
 					<form:errors path="yearOfManufacture"/>
 					</div>
 					<div>
-					<form:label path="milleage"><spring:message code="insertAuto.text.milleage"/></form:label><br>
-					<form:input type="text" path="milleage" placeholder="milleage"/>
-					<form:errors path="milleage"/>
+					<form:label path="mileage"><spring:message code="insertAuto.text.mileage"/></form:label><br>
+					<form:input type="text" path="mileage" placeholder="mileage"/>
+					<form:errors path="mileage"/>
 					</div>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<button type="submit"><spring:message code="insertAuto.button.insert"/></button>

@@ -20,13 +20,13 @@ public interface AutoDao extends JpaRepository <Auto, Long>{
 	
 	@Modifying
 	@Query("UPDATE Auto SET brand = :brand, model = :model, yearOfManufacture = "
-			+ ":yearOfManufacture, engine = :engine, milleage = :milleage "
+			+ ":yearOfManufacture, engine = :engine, mileage = :mileage "
 			+ "WHERE autoId = :autoId")
 	int updateAuto(@Param("brand") String brand,
 				   @Param("model") String model,
 				   @Param("engine")Engine engine,
 				   @Param("yearOfManufacture") String yearOfManufacture,
-				   @Param("milleage") Long milleage,
+				   @Param("mileage") Long mileage,
 				   @Param("autoId") Long autoId);
 
 	@Query("SELECT a FROM Auto a WHERE a.person.personId = :personId")

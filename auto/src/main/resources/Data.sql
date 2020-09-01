@@ -10,9 +10,9 @@ VALUES('dima', 'alex', 'zosimov', '2009-04-01', 1);
 INSERT INTO sv_user_sv_role(user_user_id, roles_role_id)
 VALUES(1, 2);
 
-INSERT INTO sv_auto (brand, model, engine, year_of_manufacture, milleage, person_id)
+INSERT INTO sv_auto (brand, model, engine, year_of_manufacture, mileage, person_id)
 VALUES('audi', 'a6', 0, '2009', '200000', 1), ('audi', 'a4', 1, '2001', '300000', 1);
 
-INSERT INTO sv_spare_part (name, auto_id, milleage, service_period, requiring_service)
+INSERT INTO sv_spare_part (name, auto_id, mileage, service_period, requiring_service)
 VALUES('масло моторное', 1, '200000', '10000', false), ('фильтр маслянный', 1, '200000', '10000', false),
 ('масло моторное', 2, '300000', '8000', false), ('фильтр маслянный', 2, '300000', '8000', false);

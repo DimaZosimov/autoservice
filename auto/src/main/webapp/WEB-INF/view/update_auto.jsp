@@ -60,9 +60,9 @@
 																<form:errors path="yearOfManufacture"/></td>
 					</tr>
 					<tr>
-						<td><b><form:label path="milleage"><spring:message code="updateAuto.text.milleage"/></form:label></b></td>
-						<td><form:input path="milleage" value="${response.milleage}"/>
-													 <form:errors path="milleage"/></td>
+						<td><b><form:label path="mileage"><spring:message code="updateAuto.text.mileage"/></form:label></b></td>
+						<td><form:input path="mileage" value="${response.mileage}"/>
+													 <form:errors path="mileage"/></td>
 					</tr>
 				</table>
 				<form:hidden path="autoId" value="${response.autoId}"/>

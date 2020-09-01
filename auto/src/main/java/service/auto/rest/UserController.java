@@ -30,7 +30,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/registration")
-	public String addUser(@ModelAttribute("registrationRequest") @Valid RegistrationRequest request, BindingResult bindingResult,
+	public String addUser(@Valid @ModelAttribute("registrationRequest") RegistrationRequest request, BindingResult bindingResult,
 			Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("error", "Registration error");
