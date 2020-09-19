@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "sv_auto")
@@ -41,6 +42,12 @@ public class Auto {
 	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
 	private Person person;
+	@Transient
+	private boolean isMain;
+	
+	public Auto() {
+		this.isMain = false;
+	}
 	
 	public Person getPerson() {
 		return person;
@@ -95,6 +102,12 @@ public class Auto {
 	}
 	public void setYearOfManufacture(String yearOfManufacture) {
 		this.yearOfManufacture = yearOfManufacture;
+	}
+	public boolean isMain() {
+		return isMain;
+	}
+	public void setMain(boolean isMain) {
+		this.isMain = isMain;
 	}
 
 }

@@ -31,6 +31,11 @@ public interface AutoDao extends JpaRepository <Auto, Long>{
 
 	@Query("SELECT a FROM Auto a WHERE a.person.personId = :personId")
 	List<Auto> findByPersonId(@Param("personId") Long personId);
+
+	@Modifying
+	@Query("UPDATE Auto SET mileage = :mileage WHERE autoId = :autoId")
+	int updateMileage(@Param("mileage") Long mileage, 
+					  @Param("autoId") Long autoId);
 	
 	
 }

@@ -108,6 +108,7 @@ public class UserService implements UserDetailsService{
 		}
 		return update(request, user);
 	}
+	
 	private String update(ProfileRequest request, User user) {
 		int resultUser = 0;
 		if(!request.getUsername().equals(user.getUsername())) {

@@ -33,7 +33,6 @@ public class UserController {
 	public String addUser(@Valid @ModelAttribute("registrationRequest") RegistrationRequest request, BindingResult bindingResult,
 			Model model) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("error", "Registration error");
 			return "registration";
 		}
 		if(!request.getPassword().equals(request.getPasswordConfirm())) {
@@ -47,90 +46,82 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/")
-	public String index(Model model) {
-		return "index";
-	}
-	
 	@GetMapping("/login")
 	public String login(Model model) {
 		return "login";
 	}
-	
+		
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		ProfileResponse response = userService.getProfile(username);
 		model.addAttribute("response", response);
-		model.addAttribute("edit", false);
 		return "profile";
 	}
 	
-	@GetMapping("/profile_edit")
+	@GetMapping("/profile/edit")
 	public String editProfile(Model model) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.addAttribute("edit", true);
-		model.addAttribute("profileRequest", new ProfileRequest());
 		ProfileResponse response = userService.getProfile(username);
 		model.addAttribute("response", response);
-		return "profile";
+		model.addAttribute("profileRequest", new ProfileRequest());
+		return "editProfile";
 	}
 	
-	@PostMapping("/profile")
-	public String saveProfile(Model model, @ModelAttribute("profileRequest") @Valid ProfileRequest request, 
+	@PostMapping("/profile/edit")
+	public String editProfile(Model model, @Valid @ModelAttribute("profileRequest") ProfileRequest request, 
 			BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("error", "Profile error");
-			model.addAttribute("edit", true);
-			return "profile";
+			return "editProfile";
 		}
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		String result = userService.updateUser(request, username);
 		if(result.equals("true")) {
-			model.addAttribute("messageOfSaved", "Данные сохранены");
+			model.addAttribute("successMessage", "Данные сохранены");
 			model.addAttribute("response", request);
-			model.addAttribute("edit", false);
 		} else {
 			model.addAttribute("response", userService.getProfile(username));
-			model.addAttribute("error", "Ошибка изменения");
-			model.addAttribute("edit", true);
+			model.addAttribute("errorMessage", "Ошибка изменения");
 			if(result.equals("usernameError")) {
-				model.addAttribute("usernameError", "Пользователь с таким именем существует");
+				model.addAttribute("warningMessage", "Пользователь с таким именем существует");
+				return "editProfile";
 			}
 		}
 		return "profile";
 	}
 	
-	@GetMapping("/password")
+	@GetMapping("/profile/password")
 	public String editPassword(Model model) {
 		model.addAttribute("requestPassword", new RequestPassword());
-		return "password";
+		return "editPassword";
 	}
 	
-	@PostMapping("/password")
+	@PostMapping("/profile/password")
 	public String savePassword(@Valid @ModelAttribute("requestPassword") RequestPassword request, 
 			BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
-			return "password";
+			return "editPassword";
 		}
 		if(!request.getNewPassword().equals(request.getNewPasswordConfirm())) {
-			model.addAttribute("passwordError", "Пароли не совпадают");
-			return "password";
+			model.addAttribute("errorPassword", "Пароли не совпадают");
+			return "editPassword";
 		}
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(userService.updatePassword(request, username)) {
-			model.addAttribute("result", "Пароль изменен");
-			return "result";
+			model.addAttribute("successMessage", "Пароль изменен");
+			ProfileResponse response = userService.getProfile(username);
+			model.addAttribute("response", response);
+			return "profile";
 		}
-		model.addAttribute("result", "Пароль не сохранен");
-		return "result";
+		model.addAttribute("errorMessage", "Пароль введен неверно");
+		return "editPassword";
 	}
 	
 	@PostMapping("/delete")
 	public String deleteUser(Model model) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		userService.deleteUser(username);
-		model.addAttribute("result", "Пользователь удален");
+		model.addAttribute("successMessage", "Пользователь удален");
 		
 		return "result";
 	}

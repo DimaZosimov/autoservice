@@ -1,6 +1,14 @@
 INSERT INTO sv_role(role_id, name)
 VALUES(1, 'ROLE_USER'), (2, 'ROLE_ADMIN');
 
+CREATE TABLE IF NOT EXISTS persistent_logins (
+  username  VARCHAR(64) NOT NULL,
+  series    VARCHAR(64) NOT NULL,
+  token     VARCHAR(64) NOT NULL,
+  last_used TIMESTAMP   NOT NULL,
+  PRIMARY KEY (series)
+);
+
 INSERT INTO sv_user(username, password, person_id)
 VALUES('admin', 'admin', 1);
 

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -13,11 +12,7 @@
 <body>
 	<a href="<%=request.getContextPath()%>/password?languageVar=en">EN</a>
   	<a href="<%=request.getContextPath()%>/password?languageVar=ru">RU</a>
-	<sec:authorize access="!isAuthenticated()">
-		<jsp:forward page="/auto-1.0/"></jsp:forward>
-	</sec:authorize>
-	<sec:authorize access="isAuthenticated()">
-		<div align="center">
+	<div align="center">
 		<h2><spring:message code="password.text.edit.password"/></h2>
 		<form:form action="password" modelAttribute="requestPassword" method="POST">
 			<table>
@@ -35,8 +30,6 @@
 			<button type="submit"><spring:message code="password.button.save"/></button>
 		</form:form></div>
 		<br>${error}
-		<div align="center"><a href="/auto-1.0/"><spring:message code="password.href.home"/></a></div>
-	</sec:authorize>
-
+	<div align="center"><a href="/auto-1.0/"><spring:message code="password.href.home"/></a></div>
 </body>
 </html>

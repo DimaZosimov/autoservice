@@ -1,13 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="UTF-8">
-	<title>Result</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	
+  <title>Главная</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  
+   
 </head>
 <body style="background-color: #2E2B3D">
 	<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #792A8A">
@@ -25,8 +28,8 @@
           </li>
         </ul>
         <div>
-          <a href="<%=request.getContextPath()%>/auto?languageVar=ru" class="btn btn-default" style="color: #C2C1C1">RU</a>
-          <a href="<%=request.getContextPath()%>/auto?languageVar=en" class="btn btn-default" style="color: #C2C1C1">EN</a>
+          <a href="<%=request.getContextPath()%>/main?languageVar=ru" class="btn btn-default" style="color: #C2C1C1">RU</a>
+          <a href="<%=request.getContextPath()%>/main?languageVar=en" class="btn btn-default" style="color: #C2C1C1">EN</a>
         </div>
         <span class="navbar-text mr-sm-2">
           ${pageContext.request.userPrincipal.name}
@@ -37,18 +40,9 @@
         </form>
       </div>
     </nav>
-    <div class="container">
-    	<c:if test="${not empty errorMessage}">
-			           <div class="alert alert-danger mb-0 text-center">
-						  <p>${errorMessage}</p>
-					   </div>
-				    </c:if>
-				    <c:if test="${not empty successMessage}">
-			           <div class="alert alert-success mb-0 text-center">
-						  <p>${successMessage}</p>
-					   </div>
-		</c:if>
+    <div class="container mt-3">
+    	<h2 class="text-light">${auto.brand} ${auto.model}</h2>
+		<p class="text-light">${auto.mileage}</p>
 	</div>
-
 </body>
 </html>

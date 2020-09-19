@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,11 +22,14 @@ import service.auto.service.AutoService;
 import service.auto.service.UserService;
 import service.auto.view.AutoRequest;
 import service.auto.view.AutoUpdateRequest;
+import service.auto.view.MainAutoRequest;
 import service.auto.view.PersonModel;
 
 @Controller
 @SessionAttributes("personModel")
 public class AutoController {
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(AutoController.class);
 	
 	@Autowired
 	private AutoService autoService;
@@ -37,6 +42,35 @@ public class AutoController {
 		return userService.getPersonModel(username);
 	}
 	
+	@GetMapping("/main")
+	public String index(Model model, PersonModel person) {
+		model.addAttribute("auto", autoService.getMainAuto(person));
+		return "main";
+	}
+	
+	@PostMapping("/main_auto")
+	public String selectMainAuto(@RequestParam("mainId") Long autoId, 
+			PersonModel person, Model model) {
+		autoService.editMainAuto(autoId, person);
+		model.addAttribute("successMessage", "Выбрано основным");
+		return "auto";
+	}
+	
+	@PostMapping("/mileage")
+	public String editMileage(@RequestParam("mileage") Long mileage, Model model,
+			PersonModel person) {
+		if(mileage < 0) {
+			model.addAttribute("errorMessage", "Ошибка ввода пробега");
+			return "auto";
+		}
+		if(autoService.editMileage(mileage, person)) {
+			model.addAttribute("successMessage", "Успешно изменено");
+			return "auto";
+		}
+		model.addAttribute("errorMessage", "Неизвестная ошибка изменения пробега");
+		return "auto";
+	}
+	
 	@GetMapping("/auto")
 	public String getCars(Model model, PersonModel person) {
 		List<Auto> list = person.getAuto();
@@ -47,33 +81,33 @@ public class AutoController {
 		return "auto";
 	}
 	
-	@GetMapping("/insert_auto")
+	@GetMapping("/auto/insert_auto")
 	public String insertAuto(Model model) {
 		model.addAttribute("autoRequest", new AutoRequest());
 		return "insert_auto";
 	}
 	
-	@PostMapping("/insert_auto")
+	@PostMapping("/auto/insert_auto")
 	public String insertAuto(@Valid @ModelAttribute("autoRequest") AutoRequest request,
 			BindingResult bindingResult, Model model, PersonModel person) {
 		if(bindingResult.hasErrors()) {
 			return "insert_auto";
 		}
 		if(autoService.insertAuto(request, person)) {
-			model.addAttribute("result", "Успешно сохранено");
+			model.addAttribute("successMessage", "Успешно сохранено");
 			return "result";
 		}
-		model.addAttribute("result", "Не сохранено");
+		model.addAttribute("errorMessage", "Не сохранено");
 		return "result";
 	}
 	
 	@GetMapping("/delete_auto")
 	public String deleteAuto(@RequestParam("deleteId") Long autoId, Model model, PersonModel person) {
 		if(autoService.deleteAuto(autoId, person)) {
-			model.addAttribute("result", "Успешно удалено");
+			model.addAttribute("successMessage", "Успешно удалено");
 			return "result";
 		}
-		model.addAttribute("result", "Ошибка удаления");
+		model.addAttribute("errorMessage", "Ошибка удаления");
 		return "result";
 	}
 	
@@ -92,10 +126,10 @@ public class AutoController {
 			return "update_auto";
 		}
 		if(autoService.updateAuto(request, person)) {
-			model.addAttribute("result", "Обновлено успешно");
+			model.addAttribute("successMessage", "Обновлено успешно");
 			return "result";
 		}
-		model.addAttribute("result", "Ошибка обновления");
+		model.addAttribute("errorMessage", "Ошибка обновления");
 		return "result";
 		
 	}

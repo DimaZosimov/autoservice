@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title><spring:message code="profile.title"/></title>
+	<title><spring:message code="editPassword.title"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -60,46 +60,62 @@
         </div>
         <div class="col-md-9">
           <div class="tab-content">
-            <div class="tab-pane fade show active" id="main">
-              <div class="row mt-md-3 ml-md-3">
-                <div class="col-md-3"><h5 class="text-light"><spring:message code="profile.text.username"/></h5></div>
-                <div class="col-md-9"><h5 class="text-muted">${response.username}</h5></div>
+            <div class="tab-pane fade show active" id="edit-password">
+              <div class="text-light mt-3">
+                <h3><spring:message code="editPassword.text.head"/></h3>
               </div>
-              <div class="row ml-md-3">
-                <div class="col-md-3"><h5 class="text-light"><spring:message code="profile.text.firstName"/></h5></div>
-                <div class="col-md-9"><h5 class="text-muted">${response.firstName}</h5></div>
-              </div>
-              <div class="row ml-md-3">
-                <div class="col-md-3"><h5 class="text-light"><spring:message code="profile.text.middleName"/></h5></div>
-                <div class="col-md-9"><h5 class="text-muted">${response.middleName}</h5></div>
-              </div>
-              <div class="row ml-md-3">
-                <div class="col-md-3"><h5 class="text-light"><spring:message code="profile.text.lastName"/></h5></div>
-                <div class="col-md-9"><h5 class="text-muted">${response.lastName}</h5></div>
-              </div>
-              <div class="row ml-md-3">
-                <div class="col-md-3"><h5 class="text-light"><spring:message code="profile.text.dateOfBirth"/></h5></div>
-                <div class="col-md-9"><h5 class="text-muted">${response.dateOfBirth}</h5></div>
-              </div>
+              <form:form class="needs-validation" action="password" method="POST" modelAttribute="requestPassword">
+                <div class="form-group row">
+                  <!-- Old password -->
+                  <form:label class="col-md-3 col-form-label col-form-label-lg text-muted" path="password">
+                  	<spring:message code="editPassword.text.oldPassword"/>
+                  </form:label>
+                  <div class="col-md-9">
+                  	<form:input class="form-control col-md-9" type="password" path="password"/>
+	                <div class="text-danger">
+	                   <p><form:errors path="password"/></p>
+	                </div>
+	                <div class="text-danger">
+	                   <p>${errorMessage}</p>
+	                </div>
+	              </div>  
+                </div>
+                <!-- New password -->
+                <div class="form-group row">
+                  <form:label class="col-md-3 col-form-label col-form-label-lg text-muted" path="newPassword">
+                  	<spring:message code="editPassword.text.newPassword"/>
+                  </form:label>
+                  <div class="col-md-9">
+	                  <form:input class="form-control col-md-9" type="password" path="newPassword"/>
+	                  <div class="text-danger">
+	                    <p><form:errors path="newPassword"/></p>
+	                  </div>
+                  </div>
+                </div>
+                <!-- Confirm password -->
+                <div class="form-group row">
+                  <form:label class="col-md-3 col-form-label col-form-label-lg text-muted" path="newPasswordConfirm">
+                  	<spring:message code="editPassword.text.confirmPassword"/>
+                  </form:label>
+                  <div class="col-md-9">
+                  	<form:input class="form-control col-md-9" type="password" path="newPasswordConfirm"/>
+	                <div class="text-danger">
+	                  <p><form:errors path="newPasswordConfirm"/></p>
+	                </div>
+                  </div>
+                </div>
+                <c:if test="${not empty errorPassword}">
+	                <div class="alert alert-danger" role="alert">
+				  		<h5 class="mb-0">${errorPassword}</h5>
+			   		</div>
+			   	</c:if>
+                <button class="btn btn-primary" type="submit"><spring:message code="editPassword.button.save"/></button>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+              </form:form>
             </div>
-           </div>
-           <c:if test="${not empty successMessage}">
-	           <div class="alert alert-success mb-0">
-				  <p>${successMessage}</p>
-			   </div>
-		   </c:if>
-		   <c:if test="${not empty errorMessage}">
-			   <div class="alert alert-danger mb-0">
-				  <p>${errorMessage}</p>
-			   </div>
-		   </c:if>
-		   <c:if test="${not empty warningMessage}">
-			   <div class="alert alert-warning mb-0">
-				  <p>${warningMessage}</p>
-			   </div>
-		   </c:if>
           </div>
- 		</div>
+        </div>
+       </div>
       </div>
     </body>
 </html>

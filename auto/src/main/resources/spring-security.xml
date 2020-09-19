@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns:beans= "http://www.springframework.org/schema/beans"
-             xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
-             xmlns= "http://www.springframework.org/schema/security"
-             xsi:schemaLocation= "http://www.springframework.org/schema/beans
+<beans:beans
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
-    
-    <!-- auto-config= "true" > Automatically registers a login form, BASIC authentication,
-    logout services. use-expressions Enables EL-expressions in the access attribute -->
-    <http auto-config= "true" use-expressions= "true"  >
-    	<intercept-url pattern= "/admin/**" access= "hasRole('ROLE_ADMIN')"/>
-    	<intercept-url pattern= "/main/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
-    
-    	<form-login login-page="/login"
-	          authentication-failure-url= "/login?error=true"
-	          default-target-url="/" />
-          
-    	<logout logout-url= "/logout" logout-success-url= "/"/>
-    	    
-    	<csrf disabled= "false"/>
-    
-    </http>
-    
-    
-    <jdbc-user-service id= "jdbcUserService" data-source-ref= "dataSource"
-                       users-by-username-query= "SELECT username, password, true FROM sv_user WHERE username=?"
-                       authorities-by-username-query= "SELECT u.username, r.name FROM sv_user u LEFT JOIN sv_user_sv_role ur ON u.user_id = ur.user_user_id, sv_role r WHERE ur.roles_role_id = r.role_id AND u.username = ?"/>
-        	 
-        	 
-    <authentication-manager alias= "authenticationManager">
-        <authentication-provider user-service-ref= "jdbcUserService">
-        	<password-encoder ref="bcryptEncoder"></password-encoder>
-        </authentication-provider>
-    </authentication-manager>
-   
-    <beans:bean name="bcryptEncoder"
-      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	<!-- auto-config= "true" > Automatically registers a login form, BASIC authentication, 
+		logout services. use-expressions Enables EL-expressions in the access attribute -->
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/login"				access="permitAll"/>
+		<intercept-url pattern="/resources/css/**"	access="permitAll"/>
+		<intercept-url pattern="/registration"		access="permitAll"/>
+		<intercept-url pattern="/admin/**"			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/**"				access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		
+		<form-login login-page="/login"
+			authentication-failure-url="/login?error=true" 
+			default-target-url="/main" />
+
+		<logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
+
+		<csrf disabled="false" />
+		
+		<remember-me token-validity-seconds="60" user-service-ref="UserDetailsService"
+					 remember-me-parameter="remember-me" data-source-ref="dataSource"/>
+
+	</http>
+	
+	<beans:bean id="UserDetailsService"	class="service.auto.service.UserService"/>
+
+	<jdbc-user-service id="jdbcUserService"
+		data-source-ref="dataSource"
+		users-by-username-query="SELECT username, password, true FROM sv_user WHERE username=?"
+		authorities-by-username-query="SELECT u.username, r.name FROM sv_user u 
+									   LEFT JOIN sv_user_sv_role ur ON u.user_id = ur.user_user_id, sv_role r 
+									   WHERE ur.roles_role_id = r.role_id AND u.username = ?" />
+
+
+	<authentication-manager
+		alias="authenticationManager">
+		<authentication-provider
+			user-service-ref="jdbcUserService">
+			<password-encoder ref="bcryptEncoder"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean name="bcryptEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 </beans:beans>

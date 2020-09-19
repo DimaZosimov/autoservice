@@ -14,6 +14,7 @@ import service.auto.domain.Auto;
 import service.auto.domain.Person;
 import service.auto.view.AutoRequest;
 import service.auto.view.AutoUpdateRequest;
+import service.auto.view.MainAutoRequest;
 import service.auto.view.PersonModel;
 
 @Service
@@ -48,7 +49,7 @@ public class AutoService {
 		}
 		return false;
 	}
-
+	@Transactional
 	public boolean insertAuto(AutoRequest request, PersonModel personModel) {
 		Auto auto = buildAuto(request);
 		if(auto == null) {
@@ -81,6 +82,36 @@ public class AutoService {
 			}
 		}
 		return null;
+	}
+
+	public void editMainAuto(Long id, PersonModel person) {
+		for(Auto a : person.getAuto()) {
+			if(a.getAutoId().equals(id)) {
+				a.setMain(true);
+			} else {
+				a.setMain(false);
+			}
+		}		
+	}
+
+	@Transactional
+	public boolean editMileage(Long mileage, PersonModel person) {
+		Auto auto = getMainAuto(person);
+		if(autoDao.updateMileage(mileage, auto.getAutoId()) > 0) {
+			auto.setMileage(mileage);
+			return true;
+		} 
+		return false;
+	}
+	
+	public Auto getMainAuto(PersonModel person) {
+		Auto auto = null;
+		for(Auto a : person.getAuto()) {
+			if(a.isMain()) {
+				return a;
+			}
+		}
+		return auto;
 	}
 	
 }

@@ -18,6 +18,7 @@ public class PersonModel {
 		this.username = username;
 		this.personId = personId;
 		this.auto = auto;
+		auto.get(0).setMain(true);
 	}
 
 	public String getUsername() {
