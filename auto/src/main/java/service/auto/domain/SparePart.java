@@ -103,5 +103,64 @@ public class SparePart {
 	public void setRequiringService(boolean requiringService) {
 		this.requiringService = requiringService;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((auto == null) ? 0 : auto.hashCode());
+		result = prime * result + ((mileage == null) ? 0 : mileage.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((notes == null) ? 0 : notes.hashCode());
+		result = prime * result + (requiringService ? 1231 : 1237);
+		result = prime * result + ((servicePeriod == null) ? 0 : servicePeriod.hashCode());
+		result = prime * result + ((sparePartId == null) ? 0 : sparePartId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SparePart other = (SparePart) obj;
+		if (auto == null) {
+			if (other.auto != null)
+				return false;
+		} else if (!auto.equals(other.auto))
+			return false;
+		if (mileage == null) {
+			if (other.mileage != null)
+				return false;
+		} else if (!mileage.equals(other.mileage))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (notes == null) {
+			if (other.notes != null)
+				return false;
+		} else if (!notes.equals(other.notes))
+			return false;
+		if (requiringService != other.requiringService)
+			return false;
+		if (servicePeriod == null) {
+			if (other.servicePeriod != null)
+				return false;
+		} else if (!servicePeriod.equals(other.servicePeriod))
+			return false;
+		if (sparePartId == null) {
+			if (other.sparePartId != null)
+				return false;
+		} else if (!sparePartId.equals(other.sparePartId))
+			return false;
+		return true;
+	}
+	
 	
 }

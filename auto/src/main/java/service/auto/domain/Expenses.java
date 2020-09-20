@@ -80,4 +80,58 @@ public class Expenses {
 		this.date = date;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((auto == null) ? 0 : auto.hashCode());
+		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((expenseType == null) ? 0 : expenseType.hashCode());
+		result = prime * result + ((expensesId == null) ? 0 : expensesId.hashCode());
+		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
+		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Expenses other = (Expenses) obj;
+		if (auto == null) {
+			if (other.auto != null)
+				return false;
+		} else if (!auto.equals(other.auto))
+			return false;
+		if (cost == null) {
+			if (other.cost != null)
+				return false;
+		} else if (!cost.equals(other.cost))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (expenseType != other.expenseType)
+			return false;
+		if (expensesId == null) {
+			if (other.expensesId != null)
+				return false;
+		} else if (!expensesId.equals(other.expensesId))
+			return false;
+		if (quantity == null) {
+			if (other.quantity != null)
+				return false;
+		} else if (!quantity.equals(other.quantity))
+			return false;
+		if (unit != other.unit)
+			return false;
+		return true;
+	}
+	
 }

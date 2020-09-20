@@ -110,4 +110,77 @@ public class Auto {
 		this.isMain = isMain;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((autoId == null) ? 0 : autoId.hashCode());
+		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
+		result = prime * result + ((engine == null) ? 0 : engine.hashCode());
+		result = prime * result + ((expenses == null) ? 0 : expenses.hashCode());
+		result = prime * result + (isMain ? 1231 : 1237);
+		result = prime * result + ((mileage == null) ? 0 : mileage.hashCode());
+		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		result = prime * result + ((person == null) ? 0 : person.hashCode());
+		result = prime * result + ((spareParts == null) ? 0 : spareParts.hashCode());
+		result = prime * result + ((yearOfManufacture == null) ? 0 : yearOfManufacture.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Auto other = (Auto) obj;
+		if (autoId == null) {
+			if (other.autoId != null)
+				return false;
+		} else if (!autoId.equals(other.autoId))
+			return false;
+		if (brand == null) {
+			if (other.brand != null)
+				return false;
+		} else if (!brand.equals(other.brand))
+			return false;
+		if (engine != other.engine)
+			return false;
+		if (expenses == null) {
+			if (other.expenses != null)
+				return false;
+		} else if (!expenses.equals(other.expenses))
+			return false;
+		if (isMain != other.isMain)
+			return false;
+		if (mileage == null) {
+			if (other.mileage != null)
+				return false;
+		} else if (!mileage.equals(other.mileage))
+			return false;
+		if (model == null) {
+			if (other.model != null)
+				return false;
+		} else if (!model.equals(other.model))
+			return false;
+		if (person == null) {
+			if (other.person != null)
+				return false;
+		} else if (!person.equals(other.person))
+			return false;
+		if (spareParts == null) {
+			if (other.spareParts != null)
+				return false;
+		} else if (!spareParts.equals(other.spareParts))
+			return false;
+		if (yearOfManufacture == null) {
+			if (other.yearOfManufacture != null)
+				return false;
+		} else if (!yearOfManufacture.equals(other.yearOfManufacture))
+			return false;
+		return true;
+	}
+
 }
